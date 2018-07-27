@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,26 +24,31 @@ public class DatabaseConnecting extends HttpServlet {
 	 *      response)
 	 */
 	String header = "<!DOCTYPE html>\r\n" + "<html lang=\"en\">\r\n" + "<head>\r\n"
-			+ "  <title>Bootstrap Example</title>\r\n" + "  <meta charset=\"utf-8\">\r\n"
+			+ "  <title>Database Connection</title>\r\n" + "  <meta charset=\"utf-8\">\r\n"
 			+ "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
 			+ "  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css\">\r\n"
 			+ "  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r\n"
 			+ "  <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js\"></script>\r\n"
 			+ "  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js\"></script>\r\n"
-			+ "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div class=\"container\">\r\n" + "  <h2>Database</h2>\r\n"
+			+ "</head>\r\n" + "<body style=\"background-color:#C5FA6E\">\r\n" + "\r\n" + "<div class=\"container\">\r\n" + "  <h2>Database</h2>\r\n"
 			+ "  <p>These are the contents of database</p>            \r\n"
-			+ "  <table class=\"table\">\r\n" + "    <thead>\r\n" + "      <tr>\r\n" + "        <th>ID</th>\r\n"
+			+ "  <table class=\"table\" bordercolor=red>\r\n" + "    <thead>\r\n" + "      <tr color=red>\r\n" + "        <th>ID</th>\r\n"
 			+ "        <th>Name</th>\r\n" + "      </tr>\r\n" + "    </thead>\r\n" + "    <tbody>\r\n";
 
 	String table = "      <tr>\r\n" + "        <td>%s</td>\r\n" + "        <td>%s</td>\r\n" + "      </tr>\r\n";
+	
 	String footer = "    </tbody>\r\n" + "  </table>\r\n" + "</div>\r\n" + "\r\n" + "</body>\r\n" + "</html>\r\n" + "";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String url = "jdbc:postgresql://localhost:5432/registration";
-		String user = "postgres";
-		String password = "admin";
+		ServletContext context = getServletContext();
+		
+		
+		String url = context.getInitParameter("url");		
+		String user = context.getInitParameter("username");
+		String password = context.getInitParameter("password");
+		
 		try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e1) {
