@@ -1,4 +1,7 @@
-package sahilPactises;
+
+
+import javax.servlet.http.HttpServlet;
+
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,16 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Request;
+
 /**
  * Servlet implementation class DatabaseConnecting
  */
-public class DatabaseConnecting extends HttpServlet {
+public class dbConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -76,7 +82,10 @@ public class DatabaseConnecting extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			response.getWriter().print("Invalid");
+			//response.getWriter().print("Invalid");
+			/*RequestDispatcher rd = request.getRequestDispatcher("invalid.html");
+			rd.forward(request, response);*/
+			response.sendRedirect("invalid.html");
 		}
 	}
 
